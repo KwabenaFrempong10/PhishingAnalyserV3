@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add('js');</script>
+<meta name="description" content="Phishing Email Analyzer - a free, private tool that checks email text for 21 phishing warning signs. All analysis runs locally in your browser.">
+<title>Phishing Email Analyzer</title>
+<meta name="theme-color" content="#0a0a0c">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Phishing Email Analyzer">
+<meta property="og:description" content="A free, private tool that checks email text for phishing warning signs and gives an explainable risk score. Runs entirely in your browser.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Phishing Email Analyzer">
+<meta name="twitter:description" content="A free, private tool that checks email text for phishing warning signs. Runs entirely in your browser.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+<a class="skip-link" href="#analyser">Skip to analyzer</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#home" aria-label="Phishing Email Analyzer home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">Phishing Email <strong>Analyzer</strong></span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="#analyser">Analyze</a>
+      <a href="#guide">Warning Signs</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#faq">FAQ</a>
+      <a href="#privacy">Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<main id="home">
+  <!-- ============ HERO / HOME HUB ============ -->
+  <section class="hero">
+    <div class="container">
+      <p class="hero-eyebrow">Free - Private - Runs on your device</p>
+      <h1 class="hero-title">Check a suspicious email, <span class="accent">safely.</span></h1>
+      <p class="hero-sub">
+        Paste any email into the analyzer. It checks for 21 common phishing warning signs,
+        scores the risk from 0 to 100, and explains every result - all without ever
+        sending your email anywhere.
+      </p>
+      <a class="btn btn-primary btn-lg" href="#analyser">Analyze an Email</a>
+      <a class="btn btn-ghost btn-lg" href="#how-it-works">How It Works</a>
+
+      <a class="scroll-hint" href="#analyser" aria-label="Scroll to the analyzer">
+        <span class="scroll-hint-label">Scroll</span>
+        <span class="scroll-hint-chevron" aria-hidden="true"></span>
+      </a>
+
+      <div class="hub" aria-label="Site sections">
+        <a class="hub-card" href="#analyser">
+          <span class="hub-title">Analyze an Email</span>
+          <span class="hub-desc">Paste email text to get a risk score with clear explanations.</span>
+        </a>
+        <a class="hub-card" href="#faq">
+          <span class="hub-title">Frequently Asked Questions</span>
+          <span class="hub-desc">Answers to common questions about the tool.</span>
+        </a>
+        <a class="hub-card" href="#guide">
+          <span class="hub-title">What to Look For</span>
+          <span class="hub-desc">A guide to the warning signs used in phishing.</span>
+        </a>
+        <a class="hub-card" href="#how-it-works">
+          <span class="hub-title">How It Works</span>
+          <span class="hub-desc">How the risk score is calculated, step by step.</span>
+        </a>
+        <a class="hub-card" href="#privacy">
+          <span class="hub-title">Your Privacy</span>
+          <span class="hub-desc">Why your email never leaves your device.</span>
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- ============ ANALYZER ============ -->
+  <section class="section" id="analyser">
+    <div class="container">
+      <p class="section-eyebrow">Analyze</p>
+      <h2 class="section-title">Analyze an Email</h2>
+      <p class="section-sub">
+        Paste the full text of a suspicious email below (the body, and the headers if you have them).
+        Then click <strong>Analyze Email</strong>.
+      </p>
+
+      <div class="analyser-grid">
+        <div class="analyser-left">
+          <label class="sr-only" for="email-input">Email text</label>
+          <textarea id="email-input" class="email-input" spellcheck="false"
+            placeholder="Paste the email text here, for example:&#10;&#10;Dear Customer,&#10;&#10;Your account will be suspended within 24 hours unless you verify your password immediately..."></textarea>
+          <div class="analyser-actions">
+            <button id="analyse-btn" class="btn btn-primary" type="button">Analyze Email</button>
+            <button id="clear-btn" class="btn btn-ghost" type="button">Clear</button>
+            <label class="example-select-wrap" for="example-select">
+              <span class="sr-only">Load an example</span>
+              <select id="example-select" class="example-select">
+                <option value="">Load an example...</option>
+              </select>
+            </label>
+          </div>
+          <p class="privacy-inline">All analysis runs <strong>inside your browser</strong>. Nothing is uploaded, stored, or shared.</p>
+        </div>
+
+        <div class="analyser-right" id="results-panel" hidden>
+          <!-- filled by JavaScript -->
+        </div>
+      </div>
+
+      <div id="empty-state" class="empty-state">
+        <p>Your results will appear here after you analyze an email.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GUIDE / WHAT TO LOOK FOR ============ -->
+  <section class="section" id="guide">
+    <div class="container">
+      <p class="section-eyebrow">Warning Signs</p>
+      <h2 class="section-title">What to Look For</h2>
+      <p class="section-sub">
+        Scammers try to make you act quickly, feel afraid, or hand over information.
+        These are the main warning signs in plain language.
+      </p>
+      <div class="guide-grid">
+        <article class="guide-card">
+          <h3>Pressure and Urgency</h3>
+          <p>Messages that say "act now", "within 24 hours", or "final warning" try to rush you so you do not think clearly.</p>
+        </article>
+        <article class="guide-card">
+          <h3>Threats</h3>
+          <p>Threats like "your account will be closed" or "you will lose access" are designed to scare you into acting.</p>
+        </article>
+        <article class="guide-card">
+          <h3>Asking for Secrets</h3>
+          <p>Real companies will <strong>never</strong> ask for your password, PIN, or verification code by email.</p>
+        </article>
+        <article class="guide-card">
+          <h3>Money and Gift Cards</h3>
+          <p>Legitimate organizations do not demand payment by gift card, wire transfer, or cryptocurrency.</p>
+        </article>
+        <article class="guide-card">
+          <h3>Sneaky Links</h3>
+          <p>Shortened links and raw IP-address links can hide where a link really goes. Hover (without clicking) to preview.</p>
+        </article>
+        <article class="guide-card">
+          <h3>Attachments and Macros</h3>
+          <p>Unexpected attachments, especially programs (.exe) or files asking you to enable macros, are dangerous.</p>
+        </article>
+        <article class="guide-card">
+          <h3>Impersonation</h3>
+          <p>Vague greetings like "Dear Customer" and claims from a fake "security team" are common tricks.</p>
+        </article>
+        <article class="guide-card">
+          <h3>Surprise Invoices</h3>
+          <p>Unexpected invoices or "overdue payment" notes often hide a scam inside the attachment or link.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section section-alt" id="how-it-works">
+    <div class="container">
+      <p class="section-eyebrow">Methodology</p>
+      <h2 class="section-title">How the Risk Score Works</h2>
+      <p class="section-sub">
+        There is no mystery number. Every warning sign is worth a set number of points, and the
+        total becomes your score (0-100). Each point is shown and explained in your results.
+      </p>
+      <div class="score-bands">
+        <div class="band">
+          <span class="band-dot" aria-hidden="true"></span>
+          <div>
+            <strong>Low Risk (0-34)</strong>
+            <p>Few or no warning signs found. Still, always double-check unexpected messages.</p>
+          </div>
+        </div>
+        <div class="band">
+          <span class="band-dot" aria-hidden="true"></span>
+          <div>
+            <strong>Suspicious (35-69)</strong>
+            <p>Several warning signs. Treat the message with caution and verify it another way.</p>
+          </div>
+        </div>
+        <div class="band">
+          <span class="band-dot" aria-hidden="true"></span>
+          <div>
+            <strong>High Risk (70-100)</strong>
+            <p>Many strong warning signs. Do not click links or open attachments. Verify officially.</p>
+          </div>
+        </div>
+      </div>
+      <p class="note-block">
+        <strong>Important:</strong> This tool can <em>never</em> say for certain whether an email is
+        safe or malicious. It is an <strong>educational triage tool</strong> that highlights warning signs.
+        A low score does not guarantee safety, and a high score does not prove harm, but a high score is
+        a strong reason to stop and check.
+      </p>
+
+      <details class="collapsible">
+        <summary>Scoring Reference</summary>
+        <div class="collapsible-body">
+          <p>Every warning sign the analyzer checks, and its point value.</p>
+          <div class="table-wrap">
+            <table class="scoring-table">
+              <thead>
+                <tr><th scope="col">Warning Sign</th><th scope="col" class="pts-col">Points</th></tr>
+              </thead>
+              <tbody id="scoring-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <div class="worked-example">
+        <h3>Worked Example</h3>
+        <p class="worked-email">"URGENT: Verify your password within 24 hours or your account will be closed."</p>
+        <ul class="worked-breakdown">
+          <li><span>Urgency and pressure language</span><span>+10</span></li>
+          <li><span>Threat to suspend or close your account</span><span>+20</span></li>
+          <li><span>Asks for your password</span><span>+30</span></li>
+        </ul>
+        <p class="worked-total">Total: <strong>60</strong> - Suspicious</p>
+      </div>
+
+      <div class="limitations">
+        <h3>What This Tool Cannot Do</h3>
+        <ul>
+          <li>It cannot open or inspect attachments.</li>
+          <li>It cannot visit links or check whether a linked website is actually malicious.</li>
+          <li>It only analyzes the text you paste; it cannot retrieve the real email or verify who sent it.</li>
+          <li>Its header checks (SPF, DKIM, DMARC) only run if you paste the full email headers.</li>
+          <li>Its score is a rule-based heuristic, not a guarantee. A low score is not proof of safety, and a high score is not proof of harm.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- ============ FAQ ============ -->
+  <section class="section" id="faq">
+    <div class="container narrow">
+      <p class="section-eyebrow">FAQ</p>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Is my email uploaded anywhere?</summary>
+          <p>No. All analysis happens locally in your browser using JavaScript on this page. Your email text never leaves your device, and there is no server, account, or network request involved.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can this tool tell me for certain if an email is a phishing attempt?</summary>
+          <p>No. This is an educational triage tool. It highlights common warning signs and gives an explainable risk score, but it cannot give a definitive verdict. Always verify important messages independently.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What are SPF, DKIM, and DMARC?</summary>
+          <p>They are email authentication checks. SPF verifies the sending server, DKIM verifies a digital signature, and DMARC ties the two together. If you paste the full email headers, the tool can look for failures in these checks.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do I need to install anything or create an account?</summary>
+          <p>No. This is a static website made of plain files. There is no sign-up, no database, and no software to install. It even works with your internet connection turned off.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What should I do if I get a High Risk result?</summary>
+          <p>Do not click any links or open any attachments. Verify the message using the company's official website or app, or contact the sender using a number you already know and trust. When in doubt, delete the email and report it.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is this a replacement for antivirus or email security software?</summary>
+          <p>No. It is a learning and triage aid, not a security product. It only looks at the text you paste and cannot scan attachments, visit links, or protect your device.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRIVACY ============ -->
+  <section class="section section-alt" id="privacy">
+    <div class="container narrow">
+      <p class="section-eyebrow">Privacy</p>
+      <h2 class="section-title">Your Privacy</h2>
+      <div class="privacy-card">
+        <p class="privacy-lead">
+          <strong>Your email text never leaves your computer.</strong>
+        </p>
+        <ul class="privacy-list">
+          <li>All analysis happens <strong>locally in your browser</strong> using JavaScript on this page.</li>
+          <li>Nothing is <strong>uploaded, stored, or transmitted</strong>, not to us, not to any server, and not to any AI or analytics service.</li>
+          <li>There is <strong>no tracking, no telemetry, no cookies, and no accounts</strong>.</li>
+          <li>You can <strong>close this page or disconnect from the internet</strong> and it still works.</li>
+        </ul>
+        <p class="privacy-note">
+          This website is completely static (just files) and free to use. If you save a copy,
+          your email text stays in your own hands.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <strong>Phishing Email Analyzer</strong>
+        <p class="footer-tagline">A free, private, educational tool for spotting phishing warning signs.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#analyser">Analyze</a>
+        <a href="#guide">Warning Signs</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#faq">FAQ</a>
+        <a href="#privacy">Privacy</a>
+      </nav>
+    </div>
+    <p class="footer-disclaimer">
+      <strong>Phishing Email Analyzer</strong> is an educational tool. It highlights common warning
+      signs but cannot definitively determine whether an email is malicious. Never click suspicious
+      links or open suspicious attachments just to test them. Always verify important messages using
+      an organization's official website, app, or known contact details.
+    </p>
+    <p class="footer-small">&copy; 2026 Phishing Email Analyzer | v1.0 | Runs 100% in your browser | No data collected.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
+
+
+
