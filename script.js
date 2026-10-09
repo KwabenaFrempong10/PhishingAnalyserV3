@@ -606,9 +606,9 @@ The Northbank Team`
   ];
 
   function classify(score) {
-    if (score <= 34) return { level: "low", label: "Low Risk", color: "#3b82f6" };
-    if (score <= 69) return { level: "suspicious", label: "Suspicious", color: "#3b82f6" };
-    return { level: "high", label: "High Risk", color: "#3b82f6" };
+    if (score <= 34) return { level: "low", label: "Low Risk", color: "#1a5fb4" };
+    if (score <= 69) return { level: "suspicious", label: "Suspicious", color: "#1a5fb4" };
+    return { level: "high", label: "High Risk", color: "#1a5fb4" };
   }
 
   function buildRecommendations(hits) {
@@ -813,39 +813,6 @@ The Northbank Team`
   });
 
   /* ---------- Motion: reveal on scroll, header state, progress bar ---------- */
-  function tagReveal(selector, baseDelay) {
-    const groups = {};
-    document.querySelectorAll(selector).forEach(function (el) {
-      const parent = el.parentNode;
-      if (!groups[parent]) groups[parent] = [];
-      groups[parent].push(el);
-    });
-    Object.keys(groups).forEach(function (key) {
-      groups[key].forEach(function (el, i) {
-        if (el.classList.contains('reveal')) return;
-        el.classList.add('reveal');
-        el.style.setProperty('--d', (i * baseDelay) + 'ms');
-      });
-    });
-  }
-
-  function observeReveals() {
-    const els = Array.prototype.slice.call(document.querySelectorAll('.reveal:not(.is-visible)'));
-    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      els.forEach(function (el) { el.classList.add('is-visible'); });
-      return;
-    }
-    const io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          io.unobserve(entry.target);
-          entry.target.classList.add('is-visible');
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-    els.forEach(function (el) { io.observe(el); });
-  }
-
   function initScrollEffects() {
     const header = document.querySelector('.site-header');
     const progress = document.getElementById('scroll-progress');
@@ -892,20 +859,6 @@ The Northbank Team`
   }
 
   function initMotion() {
-    tagReveal('.section-eyebrow', 0);
-    tagReveal('.section-title', 0);
-    tagReveal('.section-sub', 60);
-    tagReveal('.analyser-grid', 0);
-    tagReveal('.empty-state', 0);
-    tagReveal('.guide-card', 60);
-    tagReveal('.band', 90);
-    tagReveal('.privacy-card', 0);
-    tagReveal('.note-block', 0);
-    tagReveal('.collapsible', 0);
-    tagReveal('.worked-example', 0);
-    tagReveal('.limitations', 0);
-    tagReveal('.faq-item', 60);
-    observeReveals();
     initScrollEffects();
     initScrollSpy();
     renderScoringTable();
